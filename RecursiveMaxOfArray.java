@@ -19,7 +19,7 @@ public class RecursiveMaxOfArray
         int result = 0;
 
         //Data is null
-        if(data == null || data.length == 0 || to - from < 0){
+        if(data == null || data.length == 0 || to-from < 0 || from < 0 || to >= data.length){
             throw new BadArgumentsForMaxException("No data to calculate!" );
         }
         else if (to - from == 0) {
@@ -27,9 +27,10 @@ public class RecursiveMaxOfArray
         }
 
         else { //recurse
+            //printInts(data, from, to); debugging
             int middleIndex = (to - from) / 2 + from;
-            int left = max(data, from, middleIndex - 1);
-            int right = max(data, middleIndex, to);
+            int left = max(data, from, middleIndex); //realized I put the middle in the wrong side!
+            int right = max(data, middleIndex + 1, to);
             if (left >= right) {
                 result = left;
             } else{
@@ -39,6 +40,13 @@ public class RecursiveMaxOfArray
 
         return result;
     }
-    
+
+
+    public void printInts(int[] ints, int from, int to){
+        for(int i = from; i < to + 1; i++){
+            System.out.print(ints[i] + " ");
+        }
+        System.out.println();
+    }
     
 }
