@@ -61,6 +61,13 @@ public class RevesActionThread extends ActionThread
         c = new Pole("c", disks);
         d = new Pole("d", disks);
 
+        for(int i = 0; i < disks; i++){
+            //Disk needed a size!
+            // I made it disks-1 so that the first one would be size disks and the top one would be size 1.
+            Disk myDisk = new Disk(disks - i);
+            a.addDisk(myDisk);
+        }
+
     }
         
 
