@@ -17,10 +17,22 @@ public class RecursiveMaxOfArray
     public  int max(int data[], int from, int to)
     {
         int result = 0;
-        
-        // ADD YOUR CODE HERE
-//vvvvvvvvv ADDED CODE vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv        
 
+        if (to - from == -1) {
+            throw new BadArgumentsForMaxException("Length is 0");
+        } else if (to - from == 0) {
+            return data[from];
+        }
+        else { //recurse
+            int middleIndex = (to - from) / 2 + from;
+            int left = max(data, from, middleIndex - 1);
+            int right = max(data, middleIndex, to);
+            if (left >= right) {
+                result = left;
+            } else{
+                result = right;
+            }
+        }
         return result;
     }
     
