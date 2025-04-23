@@ -18,11 +18,14 @@ public class RecursiveMaxOfArray
     {
         int result = 0;
 
-        if (to - from == -1) {
-            throw new BadArgumentsForMaxException("Length is 0");
-        } else if (to - from == 0) {
-            return data[from];
+        //Data is null
+        if(data == null || data.length == 0 || to - from < 0){
+            throw new BadArgumentsForMaxException("No data to calculate!" );
         }
+        else if (to - from == 0) {
+            result = data[from];
+        }
+
         else { //recurse
             int middleIndex = (to - from) / 2 + from;
             int left = max(data, from, middleIndex - 1);
@@ -33,6 +36,7 @@ public class RecursiveMaxOfArray
                 result = right;
             }
         }
+
         return result;
     }
     
