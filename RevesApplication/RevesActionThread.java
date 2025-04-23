@@ -69,12 +69,26 @@ public class RevesActionThread extends ActionThread
         }
 
     }
-        
+
+    public void towersOfHanoi(int n, Pole from, Pole to, Pole extra){
+        if(n > 1) {
+            towersOfHanoi(n - 1, from, extra, to);
+            moveDisk(from, to);
+            towersOfHanoi(n - 1, extra, to, from);
+        }
+        else if(n == 1){ //almost forgot the base case!
+            moveDisk(from, to);
+        }
+        else{
+            return;
+        }
+    }
+
 
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
-        moveDisk(a,b);
+        towersOfHanoi(disks, a, d, b);
     }
 
     /**
