@@ -71,6 +71,7 @@ public class RevesActionThread extends ActionThread
     }
 
     public void towersOfHanoi(int n, Pole from, Pole to, Pole extra){
+        System.out.println("Hanoi: " + n + " from " + from.getName() + " to " + to.getName());
         if(n > 1) {
             towersOfHanoi(n - 1, from, extra, to);
             moveDisk(from, to);
@@ -84,11 +85,47 @@ public class RevesActionThread extends ActionThread
         }
     }
 
+    public int computeK(int n){
+        int k = 1;
+        int x = 0;
+        while(x<n){
+            for(int i = 0; i < k; i++){
+                x += 1;
+                if(x==n){return k;}
+            }
+            k++;
+        }
+        return k;
+    }
+
+    public void reves(int n, Pole from, Pole to, Pole extra, Pole kickKHere){
+        System.out.println("Reves: " + n + " from " + from.getName() + " to " + to.getName());
+        if(n > 1) {
+            int k = computeK(n);
+            System.out.println("n = " + n + " k = " + k);
+            //Accidentally did the wrong order at first!
+            //reves(k, from, kickKHere, extra, to);
+            //towersOfHanoi(n - k, from, to, extra);
+            //reves(k, kickKHere, to, extra, from);
+
+            reves(n - k, from, kickKHere, extra, to);
+            towersOfHanoi(k, from, to, extra);
+            reves(n - k, kickKHere, to, extra, from);
+        }
+        
+        else if(n == 1){
+            moveDisk(from, to);
+        }
+        else{
+            return;
+        }
+    }
+
 
     public void executeApplication()
     {
         // ADD CODE THAT WILL DO A SINGLE EXECUTION
-        towersOfHanoi(disks, a, d, b);
+        reves(disks, a, d, c, b);
     }
 
     /**
